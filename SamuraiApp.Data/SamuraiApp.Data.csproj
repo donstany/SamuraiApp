@@ -151,6 +151,10 @@
     <Compile Include="Migrations\20190717105944_Initial.designer.cs">
       <DependentUpon>20190717105944_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190717122740_relationships.cs" />
+    <Compile Include="Migrations\20190717122740_relationships.designer.cs">
+      <DependentUpon>20190717122740_relationships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\SamuraiContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamuraiContext.cs" />
