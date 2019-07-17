@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SamuraiApp.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

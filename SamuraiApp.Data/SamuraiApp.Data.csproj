@@ -147,9 +147,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\20190717105944_initial.cs" />
-    <Compile Include="Migrations\20190717105944_initial.designer.cs">
-      <DependentUpon>20190717105944_initial.cs</DependentUpon>
+    <Compile Include="Migrations\20190717105944_Initial.cs" />
+    <Compile Include="Migrations\20190717105944_Initial.designer.cs">
+      <DependentUpon>20190717105944_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\SamuraiContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

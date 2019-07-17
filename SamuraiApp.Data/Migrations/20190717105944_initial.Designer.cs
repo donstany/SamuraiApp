@@ -11,8 +11,8 @@ using System;
 namespace SamuraiApp.Data.Migrations
 {
     [DbContext(typeof(SamuraiContext))]
-    [Migration("20190717105944_initial")]
-    partial class initial
+    [Migration("20190717105944_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
