@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using SamuraiApp.Data;
+﻿using SamuraiApp.Data;
 using SamuraiApp.Domain;
+using System;
+using System.Linq;
 
 namespace SamuraiApp.UI
 {
@@ -16,7 +15,32 @@ namespace SamuraiApp.UI
             // InsertMultipleSamurai();
             // InsertMultipleDifferntObjects();
             //SimpleSamuraiQuery();
-            MoreQueries();
+            //MoreQueries();
+            //RetrieveAndUpdateSamurai();
+            //RetrieveAndUpdateMultipleSamurai();
+            MultipleDatabaseOperations();
+        }
+
+        private static void MultipleDatabaseOperations()
+        {
+            var samurai = _context.Samurais.FirstOrDefault();
+            samurai.Name += "Hiro";
+            _context.Samurais.Add(new Samurai { Name = "Kaykycho" });
+            _context.SaveChanges();
+        }
+
+        private static void RetrieveAndUpdateMultipleSamurai()
+        {
+            var samurais = _context.Samurais.ToList();
+            samurais.ForEach(s => s.Name += "San");
+            _context.SaveChanges();
+        }
+
+        private static void RetrieveAndUpdateSamurai()
+        {
+            var samurai = _context.Samurais.FirstOrDefault();
+            samurai.Name += "San";
+            _context.SaveChanges();
         }
 
         private static void MoreQueries()
