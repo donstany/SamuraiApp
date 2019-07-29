@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SamuraiApp.Domain;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+
 
 namespace SamuraiApp.Data
 {
