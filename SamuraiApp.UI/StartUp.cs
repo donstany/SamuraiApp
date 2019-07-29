@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SamuraiApp.Data;
 using SamuraiApp.Domain;
 
@@ -7,13 +8,32 @@ namespace SamuraiApp.UI
 {
     public class StartUp
     {
+        private static SamuraiContext _context = new SamuraiContext(); // use only if you are absolutely sure that one method were executed at one moment
         public static void Main()
         {
             // InsertSamurai();
             // https://www.brentozar.com/archive/2017/12/can-prevent-deletes-inserts-without-clause-running/ - SQL guru 
             // InsertMultipleSamurai();
             // InsertMultipleDifferntObjects();
-            SimpleSamuraiQuery();
+            //SimpleSamuraiQuery();
+            MoreQueries();
+        }
+
+        private static void MoreQueries()
+        {
+            //var nameSt = "Stanislav"; // paramterized query and escape Sql parameter
+            //var samurais = _context.Samurais.Where(s => s.Name == nameSt).ToList();
+            //var samurais = _context.Samurais.FirstOrDefault(s => s.Name == nameSt);
+
+            //var samurais = _context.Samurais.FirstOrDefault(s => s.Id == 2);
+            //var samurais = _context.Samurais.Find(2);
+
+            //var samuraisJ = _context.Samurais.Where(s => EF.Functions.Like(s.Name, "s%")).ToList();
+            //var search = "S%";
+            //var samuraisJParameter = _context.Samurais.Where(s => EF.Functions.Like(s.Name, search)).ToList();
+
+            var name = "Stanislav";
+            var lastSampson = _context.Samurais.LastOrDefault(s => s.Name == name);
         }
 
         private static void SimpleSamuraiQuery()
