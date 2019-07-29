@@ -18,7 +18,27 @@ namespace SamuraiApp.UI
             //MoreQueries();
             //RetrieveAndUpdateSamurai();
             //RetrieveAndUpdateMultipleSamurai();
-            MultipleDatabaseOperations();
+            //MultipleDatabaseOperations();
+            //InsertBattle();
+            QueryAndUpdateBattle_Disconected();
+
+        }
+
+        private static void InsertBattle()
+        {
+            _context.Battles.Add(new Battle { Name = "Battle of Azserf", StartDate = new DateTime(1580, 05, 01), EndDate = new DateTime(1560, 06, 15) });
+            _context.SaveChanges();
+        }
+
+        private static void QueryAndUpdateBattle_Disconected()
+        {
+            var battle = _context.Battles.FirstOrDefault();
+            battle.EndDate = new DateTime(1560, 06, 30);
+            using (var newContextInstance = new SamuraiContext())
+            {
+                newContextInstance.Battles.Update(battle);
+                newContextInstance.SaveChanges();
+            }
         }
 
         private static void MultipleDatabaseOperations()
