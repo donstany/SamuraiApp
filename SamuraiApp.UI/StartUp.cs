@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using SamuraiApp.Data;
 using SamuraiApp.Domain;
 
@@ -10,8 +11,23 @@ namespace SamuraiApp.UI
         {
             // InsertSamurai();
             // https://www.brentozar.com/archive/2017/12/can-prevent-deletes-inserts-without-clause-running/ - SQL guru 
-            InsertMultipleSamurai();
-            InsertMultipleDifferntObjects();
+            // InsertMultipleSamurai();
+            // InsertMultipleDifferntObjects();
+            SimpleSamuraiQuery();
+        }
+
+        private static void SimpleSamuraiQuery()
+        {
+            using (var context = new SamuraiContext())
+            {
+                var samurais = context.Samurais.ToList();
+                //var query = context.Samurais;
+                //var samuraisAgain = query.ToList();
+                //foreach (var samurai in context.Samurais) // enumeration invoke execution but is danger when retrieve too many data, isted of that use ToList(0 first()
+                //{
+                //    Console.WriteLine(samurai.Name);
+                //}
+            }
         }
 
         private static void InsertMultipleDifferntObjects()
