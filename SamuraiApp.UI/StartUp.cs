@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SamuraiApp.Data;
+using SamuraiApp.Domain;
 
 namespace SamuraiApp.UI
 {
@@ -10,6 +7,18 @@ namespace SamuraiApp.UI
     {
         public static void Main()
         {
+            InsertSamurai();
+        }
+
+        private static void InsertSamurai()
+        {
+            var samurai = new Samurai { Name = "Stanislav" };
+            using (var context = new SamuraiContext())
+            {
+                context.Samurais.Add(samurai);
+                // context.Add(samurai);
+                context.SaveChanges();
+            }
 
         }
     }

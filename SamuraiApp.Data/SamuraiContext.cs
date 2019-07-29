@@ -23,6 +23,7 @@ namespace SamuraiApp.Data
 
             optionsBuilder
                   .UseLoggerFactory(MyConsoleLoggerFactory)
+                  .EnableSensitiveDataLogging(true)
                   .UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = SamuraiAppData; Trusted_Connection = True;"); // Added data provider
         }
 
