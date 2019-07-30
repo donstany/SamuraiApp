@@ -2,6 +2,7 @@
 using SamuraiApp.Data;
 using SamuraiApp.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SamuraiApp.UI
@@ -26,8 +27,86 @@ namespace SamuraiApp.UI
             //AddMoreSamurais();
             //DeleteMany();
             //DeleteWhileNotTracked();
-            DeleteUsingId(3);
+            //DeleteUsingId(3);
+            //InsertNewPkFkGraph();
+            //InsertNewPkFkGraphMultipleChildren();
+            //AddChildToExistingObjectWhileTracked();
+            //AddChildToExistingObjectWhileNotTracked();
+            AddChildToExistingObjectWhileNotTracked(2);
 
+        }
+
+        private static void AddChildToExistingObjectWhileNotTracked(int samuraiId)
+        {
+            var quote = new Quote
+            {
+                Text = "Now that I saved you, will you feed my dinner?",
+                SamuraiId = samuraiId // set FK
+            };
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Quotes.Add(quote);
+                newContext.SaveChanges();
+            }
+
+
+        }
+
+        private static void AddChildToExistingObjectWhileNotTracked()
+        {
+            //var samurai = _context.Samurais.First();
+            //samurai.Quotes.Add(
+            //    new Quote
+            //    {
+            //        Text = "Now that I saved you, will you feed my dinner?"
+            //    });
+            //using (var newContext = new SamuraiContext())
+            //{
+            //    //newContext.Samurais.Add(samurai); - Nope!!! Don't do it
+            //}
+        }
+
+        private static void AddChildToExistingObjectWhileTracked()
+        {
+            var samurai = _context.Samurais.First();
+            samurai.Quotes.Add(
+                new Quote
+                {
+                    Text = "I bet you are happy that I've saved you!"
+                });
+            _context.SaveChanges();
+        }
+
+        private static void InsertNewPkFkGraphMultipleChildren()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Cyuozio",
+                Quotes = new HashSet<Quote>
+                {
+                    new Quote {Text = "Watch out !"  },
+                    new Quote {Text = "I told you to watch for sharp sword!" }
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
+        }
+
+        private static void InsertNewPkFkGraph()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimda",
+                Quotes = new HashSet<Quote>
+                {
+                    new Quote
+                    {
+                        Text = "I've come to save yoo"
+                    }
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
         }
 
         private static void DeleteUsingId(int samuraiId) // if object doesnt exist 
