@@ -1,4 +1,5 @@
-﻿using SamuraiApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SamuraiApp.Data;
 using SamuraiApp.Domain;
 using System;
 using System.Linq;
@@ -20,8 +21,66 @@ namespace SamuraiApp.UI
             //RetrieveAndUpdateMultipleSamurai();
             //MultipleDatabaseOperations();
             //InsertBattle();
-            QueryAndUpdateBattle_Disconected();
+            //QueryAndUpdateBattle_Disconected();
+            //DeleteWhileTracked();
+            //AddMoreSamurais();
+            //DeleteMany();
+            //DeleteWhileNotTracked();
+            DeleteUsingId(3);
 
+        }
+
+        private static void DeleteUsingId(int samuraiId) // if object doesnt exist 
+        {
+            // Two round trip to DB 
+            // First retrieve record in memory
+            var samurai = _context.Samurais.Find(samuraiId);
+            _context.Remove(samurai);
+            // Delete form DB
+            _context.SaveChanges();
+            // alternate best practice : call a store procedure!
+            // _context.Database.ExecuteSqlCommand($"exec DeleteById {samuraiId}");
+        }
+
+        private static void DeleteMany()
+        {
+            var samurais = _context.Samurais.Where(s => s.Name.Contains("o"));
+            _context.Samurais.RemoveRange(samurais);
+            // alternate: _context.RemoveRange(samurais);
+            _context.SaveChanges();
+        }
+
+        private static void AddMoreSamurais()
+        {
+            _context.AddRange(
+                new Samurai { Name = "Kambei Shamda" },
+                new Samurai { Name = "Shijsaoasa" },
+                new Samurai { Name = "Kambej Shama" },
+                new Samurai { Name = "Kuzio" },
+                new Samurai { Name = "Goredio Flores" },
+                new Samurai { Name = "Zshij sdioq" });
+            _context.SaveChanges();
+        }
+
+        private static void DeleteWhileTracked() // connected scenario
+        {
+            var samurai = _context.Samurais.FirstOrDefault(s => s.Name == "Kambei Shamda");
+            _context.Samurais.Remove(samurai);
+            // some alternates:
+            //_context.Remove(samurai);
+            //_context.Samurais.Remove(_context.Samurais.Find(1));
+            _context.SaveChanges();
+        }
+
+        private static void DeleteWhileNotTracked() // disconected scenario
+        {
+            var samurai = _context.Samurais.FirstOrDefault(s => s.Name == "Kambei Shamda");
+            using (var contextNewAppInstance = new SamuraiContext())
+            {
+                contextNewAppInstance.Samurais.Remove(samurai);
+                //contextNewAppInstance.Entry(samurai).State = EntityState.Deleted;
+                contextNewAppInstance.SaveChanges();
+            }
         }
 
         private static void InsertBattle()
