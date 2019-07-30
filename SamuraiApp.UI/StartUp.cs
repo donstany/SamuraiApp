@@ -33,8 +33,48 @@ namespace SamuraiApp.UI
             //AddChildToExistingObjectWhileTracked();
             //AddChildToExistingObjectWhileNotTracked();
             //AddChildToExistingObjectWhileNotTracked(2);
-            EagerLoadSamuraiWithQuotes();
+            //EagerLoadSamuraiWithQuotes();
+            //ProjectSomeProperties();
+            //var dynamicList = ProjectDynamic();
+            ProjectSamuraisWithQuotes();
 
+        }
+
+        private static void ProjectSamuraisWithQuotes()
+        {
+            //var somePropertiesWithQuotes = _context.Samurais.Select(s => new { s.Id, s.Name, s.Quotes }).ToList();
+            //var somePropertiesWithQuotes = _context.Samurais.Select(s => new { s.Id, s.Name, s.Quotes.Count }).ToList();
+
+            //var somePropertiesWithQuotes = _context.Samurais
+            //    .Select(s => new
+            //    {
+            //        s.Id,
+            //        s.Name,
+            //        HappyQuotes = s.Quotes.Where(q => q.Text.Contains("dyn"))
+            //    })
+            //    .ToList();
+
+            //EF Core projections don't connect graphs
+            //var somePropertiesWithQuotes = _context.Samurais.Select(s => new
+            //{
+            //    Samurai = s,
+            //    Quotes = s.Quotes.Where(q => q.Text.Contains("happy")).ToList()
+
+            //}).ToList();
+
+            var samurais = _context.Samurais.ToList();
+            var happyQuotes = _context.Quotes.Where(q => q.Text.Contains("happy")).ToList();
+        }
+
+        private static object ProjectDynamic()
+        {
+            var someProperties = _context.Samurais.Select(s => new { s.Id, s.Name }).ToList();
+            return someProperties.ToList<dynamic>();
+        }
+
+        private static void ProjectSomeProperties()
+        {
+            var someProperties = _context.Samurais.Select(s => new { s.Id, s.Name }).ToList();
         }
 
         private static void EagerLoadSamuraiWithQuotes()
